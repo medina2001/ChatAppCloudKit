@@ -16,6 +16,7 @@
 		7216FB60256D86900019AF45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7216FB5E256D86900019AF45 /* LaunchScreen.storyboard */; };
 		7216FB6B256D86900019AF45 /* ChatProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7216FB6A256D86900019AF45 /* ChatProjectTests.swift */; };
 		7216FB76256D86900019AF45 /* ChatProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7216FB75256D86900019AF45 /* ChatProjectUITests.swift */; };
+		7216FB8F256D874F0019AF45 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7216FB8E256D874F0019AF45 /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		7216FB71256D86900019AF45 /* ChatProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChatProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7216FB75256D86900019AF45 /* ChatProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatProjectUITests.swift; sourceTree = "<group>"; };
 		7216FB77256D86900019AF45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7216FB8C256D87490019AF45 /* ChatProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChatProject.entitlements; sourceTree = "<group>"; };
+		7216FB8E256D874F0019AF45 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7216FB8F256D874F0019AF45 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,9 +86,12 @@
 			isa = PBXGroup;
 			children = (
 				7216FB4F256D868F0019AF45 /* ChatProject */,
+				7216FB61256D86900019AF45 /* Info.plist */,
+				7216FB59256D868F0019AF45 /* ChatProject.xcdatamodeld */,
 				7216FB69256D86900019AF45 /* ChatProjectTests */,
 				7216FB74256D86900019AF45 /* ChatProjectUITests */,
 				7216FB4E256D868F0019AF45 /* Products */,
+				7216FB8D256D874F0019AF45 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,14 +108,10 @@
 		7216FB4F256D868F0019AF45 /* ChatProject */ = {
 			isa = PBXGroup;
 			children = (
-				7216FB50256D868F0019AF45 /* AppDelegate.swift */,
-				7216FB52256D868F0019AF45 /* SceneDelegate.swift */,
-				7216FB54256D868F0019AF45 /* ViewController.swift */,
-				7216FB56256D868F0019AF45 /* Main.storyboard */,
-				7216FB5C256D86900019AF45 /* Assets.xcassets */,
-				7216FB5E256D86900019AF45 /* LaunchScreen.storyboard */,
-				7216FB61256D86900019AF45 /* Info.plist */,
-				7216FB59256D868F0019AF45 /* ChatProject.xcdatamodeld */,
+				7216FB8C256D87490019AF45 /* ChatProject.entitlements */,
+				7216FB86256D86970019AF45 /* Model */,
+				7216FB87256D86A00019AF45 /* View */,
+				7216FB8B256D86AF0019AF45 /* Controller */,
 			);
 			path = ChatProject;
 			sourceTree = "<group>";
@@ -129,6 +132,41 @@
 				7216FB77256D86900019AF45 /* Info.plist */,
 			);
 			path = ChatProjectUITests;
+			sourceTree = "<group>";
+		};
+		7216FB86256D86970019AF45 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7216FB50256D868F0019AF45 /* AppDelegate.swift */,
+				7216FB52256D868F0019AF45 /* SceneDelegate.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7216FB87256D86A00019AF45 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7216FB5C256D86900019AF45 /* Assets.xcassets */,
+				7216FB5E256D86900019AF45 /* LaunchScreen.storyboard */,
+				7216FB56256D868F0019AF45 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7216FB8B256D86AF0019AF45 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7216FB54256D868F0019AF45 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		7216FB8D256D874F0019AF45 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7216FB8E256D874F0019AF45 /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -440,9 +478,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ChatProject/ChatProject.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TSL9RRYSR6;
-				INFOPLIST_FILE = ChatProject/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ChatProject/Model/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -450,7 +489,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Gabriel.ChatProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -459,9 +498,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ChatProject/ChatProject.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TSL9RRYSR6;
-				INFOPLIST_FILE = ChatProject/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ChatProject/Model/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -469,7 +509,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Gabriel.ChatProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
