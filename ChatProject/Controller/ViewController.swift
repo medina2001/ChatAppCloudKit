@@ -19,21 +19,20 @@ class ViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { (_) in}))
             self.present(alert,animated: true, completion: nil)
         }else{
-            performSegue(withIdentifier: "cadastroFinalizado", sender: self)
             let Username = UserNameText.text ?? ""
             cadastrarUsuário(Username: Username)
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            let nextVC = segue.destination as! ChatViewController
-        }
-    
+ 
     let privateDatabase = CKContainer(identifier: "iCloud.ChatApp").privateCloudDatabase
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        return false
     }
     
     func cadastrarUsuário(Username: String){
@@ -57,7 +56,10 @@ class ViewController: UIViewController {
                     let alert = UIAlertController(title: "Atenção", message: "Já existe um usuário com este nome na nuvem. Tente Novamente.", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { (_) in}))
                     self.present(alert,animated: true, completion: nil)
+                    self.shouldPerformSegue(withIdentifier: "cadastroFinalizado", sender: nil)
+                  
                 }else{
+                    self.performSegue(withIdentifier: "cadastroFinalizado", sender: nil )
                     print("Salvou no Banco de Dados!")
                     let record = CKRecord(recordType: "ChatUser")
                     record.setValue(Username, forKey: "name")
