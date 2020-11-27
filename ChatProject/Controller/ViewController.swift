@@ -39,7 +39,7 @@ class ViewController: UIViewController {
         let predicate = NSPredicate(format: "name == %@", Username)
         
         let query = CKQuery(recordType: "ChatUser", predicate: predicate)
-        
+    
         let operation = CKQueryOperation(query: query)
         
         var existed = false
@@ -50,7 +50,7 @@ class ViewController: UIViewController {
         }
         
         operation.queryCompletionBlock = { cursor, error in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async {      //Dar uma olhanda no pq é assincrono aqui
                 if existed{
                     print("Nome de usuário já existe!")
                     let alert = UIAlertController(title: "Atenção", message: "Já existe um usuário com este nome na nuvem. Tente Novamente.", preferredStyle: .alert)
@@ -59,13 +59,14 @@ class ViewController: UIViewController {
                     self.shouldPerformSegue(withIdentifier: "cadastroFinalizado", sender: nil)
                   
                 }else{
-                    self.performSegue(withIdentifier: "cadastroFinalizado", sender: nil )
+                    
                     print("Salvou no Banco de Dados!")
                     let record = CKRecord(recordType: "ChatUser")
                     record.setValue(Username, forKey: "name")
                     self.privateDatabase.save(record) { (savedRecord, error) in
                         DispatchQueue.main.async{
                             if error == nil{
+                                self.performSegue(withIdentifier: "cadastroFinalizado", sender: nil )   
                                 let alert = UIAlertController(title: "Ótimo! ;)", message: "O novo usuário, \(Username), foi criado com sucesso!", preferredStyle: .alert)
                                 
                                 alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))

@@ -85,6 +85,9 @@
                                     <imageReference key="backgroundImage" image="square.and.pencil" catalog="system" symbolScale="default"/>
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                 </state>
+                                <connections>
+                                    <action selector="TweetBut:" destination="UXn-dy-J11" eventType="touchUpInside" id="z1x-Tv-rdL"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0x7-is-yZV"/>
