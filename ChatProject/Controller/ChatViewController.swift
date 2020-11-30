@@ -76,8 +76,6 @@ class ChatViewController: UIViewController {
         NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main){ (notification) in
             saveAction.isEnabled = textField.text != ""
         }
-        textField.backgroundColor = UIColor.clear
-        alert.view.addSubview(textField)
         
         alert.addAction(saveAction)
         alert.addAction(cancelAction)
