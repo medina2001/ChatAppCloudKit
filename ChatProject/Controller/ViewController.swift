@@ -13,13 +13,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var UserNameText: UITextField!
     @IBOutlet weak var CadastrarButton: UIButton!
     
+    var Username = ""
+    
     @IBAction func Cadastrar(_ sender: Any) {
         if UserNameText.text == ""{
             let alert = UIAlertController(title: "Atenção", message: "Preencha o campo obrigatório acima com o seu nome!", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { (_) in}))
             self.present(alert,animated: true, completion: nil)
         }else{
-            let Username = UserNameText.text ?? ""
+            Username = UserNameText.text ?? ""
             cadastrarUsuário(Username: Username)
         }
     }
@@ -30,9 +32,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    }
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        return false
     }
     
     func cadastrarUsuário(Username: String){
@@ -52,12 +51,11 @@ class ViewController: UIViewController {
         operation.queryCompletionBlock = { cursor, error in
             DispatchQueue.main.async {      //Dar uma olhanda no pq é assincrono aqui
                 if existed{
-                    print("Nome de usuário já existe!")
-                    let alert = UIAlertController(title: "Atenção", message: "Já existe um usuário com este nome na nuvem. Tente Novamente.", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { (_) in}))
+                    print("Bem Vindo %@", Username)
+                    let alert = UIAlertController(title: "Atenção", message: "Prepare-se para ter uma conversa louca!", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in}))
                     self.present(alert,animated: true, completion: nil)
-                    self.shouldPerformSegue(withIdentifier: "cadastroFinalizado", sender: nil)
-                  
+                    self.performSegue(withIdentifier: "cadastroFinalizado", sender: nil )
                 }else{
                     
                     print("Salvou no Banco de Dados!")
@@ -84,5 +82,14 @@ class ViewController: UIViewController {
             }
         }
         privateDatabase.add(operation)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.destination is ChatViewController
+        {
+            let vc = segue.destination as? ChatViewController
+            vc?.nickname = Username
+        }
     }
 }
