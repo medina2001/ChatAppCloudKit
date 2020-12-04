@@ -77,7 +77,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="122" id="e6k-Ui-JFk">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" rowHeight="122" id="e6k-Ui-JFk" customClass="TableViewCell" customModule="ChatProject" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="374" height="122"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="e6k-Ui-JFk" id="R5e-XU-RPO">
@@ -117,6 +117,11 @@
                                         <constraints>
                                             <constraint firstAttribute="height" secondItem="KGl-AK-8VA" secondAttribute="height" constant="19" id="XC6-xN-VHI"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="DataLabel" destination="x8m-2W-k4u" id="jmR-5E-rp9"/>
+                                            <outlet property="UserNameLabel" destination="QQ3-du-UmA" id="6eh-b6-BM3"/>
+                                            <outlet property="msgTextView" destination="KGl-AK-8VA" id="szw-KG-9rA"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -148,7 +153,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                 </state>
                                 <connections>
-                                    <action selector="TweetBut:" destination="UXn-dy-J11" eventType="touchUpInside" id="Pdj-yj-m62"/>
+                                    <action selector="UpdateConsole:" destination="UXn-dy-J11" eventType="touchUpInside" id="FCk-mp-hwl"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="64F-iW-bh2">

@@ -18,6 +18,7 @@
 		7216FB6B256D86900019AF45 /* ChatProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7216FB6A256D86900019AF45 /* ChatProjectTests.swift */; };
 		7216FB76256D86900019AF45 /* ChatProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7216FB75256D86900019AF45 /* ChatProjectUITests.swift */; };
 		7216FB8F256D874F0019AF45 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7216FB8E256D874F0019AF45 /* CloudKit.framework */; };
+		DF2107042576D59B0063F8AC /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2107032576D59B0063F8AC /* TableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		7216FB77256D86900019AF45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7216FB8C256D87490019AF45 /* ChatProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChatProject.entitlements; sourceTree = "<group>"; };
 		7216FB8E256D874F0019AF45 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		DF2107032576D59B0063F8AC /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				7216FB54256D868F0019AF45 /* ViewController.swift */,
+				DF2107032576D59B0063F8AC /* TableViewCell.swift */,
 				7204D9D5256EDAFD00D6C054 /* ChatViewController.swift */,
 			);
 			path = Controller;
@@ -305,6 +308,7 @@
 				7216FB55256D868F0019AF45 /* ViewController.swift in Sources */,
 				7216FB51256D868F0019AF45 /* AppDelegate.swift in Sources */,
 				7216FB53256D868F0019AF45 /* SceneDelegate.swift in Sources */,
+				DF2107042576D59B0063F8AC /* TableViewCell.swift in Sources */,
 				7204D9D6256EDAFD00D6C054 /* ChatViewController.swift in Sources */,
 				7216FB5B256D868F0019AF45 /* ChatProject.xcdatamodeld in Sources */,
 			);

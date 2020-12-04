@@ -25,7 +25,9 @@ class ViewController: UIViewController {
             cadastrarUsuário(Username: Username)
         }
     }
-    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        return false
+    }
  
     let privateDatabase = CKContainer(identifier: "iCloud.ChatApp").privateCloudDatabase
     
@@ -70,6 +72,8 @@ class ViewController: UIViewController {
                                 alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                                 self.present(alert,animated: true, completion: nil)
                             }else{
+                                self.shouldPerformSegue(withIdentifier: "cadastroFinalizado", sender: nil)
+                                print("teste")
                                 let alert = UIAlertController(title: "Eita", message: "Deu erro em alguma coisa...\n" + error!.localizedDescription, preferredStyle: .alert)
                                 
                                 alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))

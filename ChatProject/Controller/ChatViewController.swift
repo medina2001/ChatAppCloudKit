@@ -9,6 +9,9 @@ import CloudKit
 import UIKit
 
 class ChatViewController: UIViewController {
+    var msgs: [CKRecord] = []
+    var usersByID: [String : CKRecord] = [:]
+    @IBOutlet weak var msgTableView: UITableView!
     
     
     override func viewDidLoad() {
@@ -83,5 +86,74 @@ class ChatViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
         privateDatabase.add(operation)
     }
+    
+    
+//    @IBAction func UpdateConsole(_ sender: Any) {
+//        msgs.removeAll()
+//        usersByID.removeAll()
+//        let predicate = NSPredicate(value: true)
+//               
+//               let query = CKQuery(recordType: "Message", predicate: predicate)
+//               
+//               query.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
+//               
+//               let operation = CKQueryOperation(query: query)
+//        operation.recordFetchedBlock = {record in
+//            
+//            
+//            
+//                DispatchQueue.main.async {
+//                    self.msgs.append(record)
+//                    self.msgTableView.reloadData()
+//                    let ref = record["nickname"] as!CKRecord.Reference
+//                    if self.usersByID[ref.recordID.recordName] == nil{
+//                        self.privateDatabase.fetch(withRecordID: ref.recordID, completionHandler: {userRecord,error in
+//                            DispatchQueue.main.async {
+//                                self .usersByID[ref.recordID.recordName] = userRecord
+//                                self.msgTableView.reloadData()
+//                            }
+//                        })
+//                    }
+//                }
+//    
+//            }
+//        operation.queryCompletionBlock = {cursor, error in
+//            DispatchQueue.main.async {
+//                
+//            }
+//            
+//        }
+//        privateDatabase.add(operation)
+//        }
+//    
+//    
+//}
+//
+//extension ChatViewController:UITableViewDelegate,UITableViewDataSource{
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return msgs.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 105
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = msgTableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
+//        let msg = msgs[indexPath.row]
+//        let df = DateFormatter()
+//               df.dateFormat = "HH:mm dd/MM/yy"
+//               cell.DataLabel.text = df.string(from: msg.creationDate!)
+//               
+//               cell.msgTextView.text = msg["text"]!
+//               if let user = usersByID[(msg["tweeter"] as! CKRecord.Reference).recordID.recordName]{
+//                   cell.UserNameLabel.text = user["name"]!
+//               }
+//               else{
+//                cell.UserNameLabel.text = ""
+//               }
+//        return cell
+//    }
+    
     
 }
