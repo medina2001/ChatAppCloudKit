@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             info.alertLocalizationArgs = ["text"]
             
             
-            info.shouldBadge = true //codigo q deixa o aviso vermelho tipo do wpp
+            info.shouldBadge = false //codigo q deixa o aviso vermelho tipo do wpp
             
            
             info.soundName = "default" // usar som
