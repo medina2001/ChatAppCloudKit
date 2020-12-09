@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import ClockKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -36,21 +37,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             // O predicado permite definir a condição da assinatura, por exemplo: só ser notificado da mudança se a notificação recém-criada começar com "A"
             // o TRUEPREDICATE significa que qualquer novo registro de Notificações criado será notificado
-            let subscription = CKQuerySubscription(recordType: "Messages", predicate: NSPredicate(format: "TRUEPREDICATE"), options: .firesOnRecordCreation)
+            let subscription = CKQuerySubscription(recordType: "Message", predicate: NSPredicate(format: "TRUEPREDICATE"), options: .firesOnRecordCreation)
             
             // serve pra deixar customizavel a notificação
             let info = CKSubscription.NotificationInfo()
             
             // isso usará o campo 'título' nas 'notificações' do tipo de registro como o título da notificação push
-            info.titleLocalizationKey = "deu ruim rapaziada"
-            info.titleLocalizationArgs = ["Mensagem da pandemia"]
+            info.titleLocalizationKey = "%1$@"
+            info.titleLocalizationArgs = ["nickname"]
             
             // se você deseja usar vários campos combinados para o título da notificação push
             // info.titleLocalizationArgs = ["título", "subtítulo"]
             
             // isso usará o campo 'conteúdo' nas 'notificações' do tipo de registro como o conteúdo da notificação push
-            info.alertLocalizationKey = "mensagem de alerta"
-            info.alertLocalizationArgs = ["content"]
+            info.alertLocalizationKey = "%1$@"
+            info.alertLocalizationArgs = ["text"]
             
             
             info.shouldBadge = true //codigo q deixa o aviso vermelho tipo do wpp

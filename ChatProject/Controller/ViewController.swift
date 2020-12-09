@@ -53,10 +53,7 @@ class ViewController: UIViewController {
         operation.queryCompletionBlock = { cursor, error in
             DispatchQueue.main.async {      //Dar uma olhanda no pq é assincrono aqui
                 if existed{
-                    print("Bem Vindo %@", Username)
-                    let alert = UIAlertController(title: "Atenção", message: "Prepare-se para ter uma conversa louca!", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in}))
-                    self.present(alert,animated: true, completion: nil)
+                    print("Bem Vindo", Username)
                     self.performSegue(withIdentifier: "cadastroFinalizado", sender: nil )
                 }else{
                     
@@ -66,18 +63,10 @@ class ViewController: UIViewController {
                     self.privateDatabase.save(record) { (savedRecord, error) in
                         DispatchQueue.main.async{
                             if error == nil{
-                                self.performSegue(withIdentifier: "cadastroFinalizado", sender: nil )   
-                                let alert = UIAlertController(title: "Ótimo! ;)", message: "O novo usuário, \(Username), foi criado com sucesso!", preferredStyle: .alert)
-                                
-                                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                                self.present(alert,animated: true, completion: nil)
+                                self.performSegue(withIdentifier: "cadastroFinalizado", sender: nil )
                             }else{
                                 self.shouldPerformSegue(withIdentifier: "cadastroFinalizado", sender: nil)
                                 print("teste")
-                                let alert = UIAlertController(title: "Eita", message: "Deu erro em alguma coisa...\n" + error!.localizedDescription, preferredStyle: .alert)
-                                
-                                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                                self.present(alert,animated: true, completion: nil)
                             }
                         }
                     }

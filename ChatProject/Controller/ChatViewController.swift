@@ -55,6 +55,7 @@ class ChatViewController: UIViewController {
             
             let record = CKRecord(recordType: "Message")
             record.setValue(text, forKey: "text")
+            record.setValue(self.nickname, forKey: "nickname")
             
             //            let reference = CKRecord.Reference(record: user!, action: .deleteSelf)
             self.privateDatabase.save(record){ (savedRecord, error) in
