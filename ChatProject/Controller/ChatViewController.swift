@@ -19,7 +19,7 @@ class ChatViewController: UIViewController {
         self.navigationItem.hidesBackButton = true
     }
     
-    let privateDatabase = CKContainer(identifier: "iCloud.ChatApp").privateCloudDatabase
+    let publicDatabase = CKContainer(identifier: "iCloud.ChatApp").publicCloudDatabase
     
     var nickname:String = ""
     
@@ -58,7 +58,7 @@ class ChatViewController: UIViewController {
             record.setValue(self.nickname, forKey: "nickname")
             
             //            let reference = CKRecord.Reference(record: user!, action: .deleteSelf)
-            self.privateDatabase.save(record){ (savedRecord, error) in
+            self.publicDatabase.save(record){ (savedRecord, error) in
                 DispatchQueue.main.async {
                     if error == nil{
                         let alert = UIAlertController(title: "Tweet", message: "Tweet enviado! Recarregue para atualizar.", preferredStyle: .alert)
@@ -85,7 +85,7 @@ class ChatViewController: UIViewController {
         alert.addAction(cancelAction)
         
         self.present(alert, animated: true, completion: nil)
-        privateDatabase.add(operation)
+        publicDatabase.add(operation)
     }
     
     

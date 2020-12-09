@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         return false
     }
  
-    let privateDatabase = CKContainer(identifier: "iCloud.ChatApp").privateCloudDatabase
+    let publicDatabase = CKContainer(identifier: "iCloud.ChatApp").publicCloudDatabase
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +60,7 @@ class ViewController: UIViewController {
                     print("Salvou no Banco de Dados!")
                     let record = CKRecord(recordType: "ChatUser")
                     record.setValue(Username, forKey: "name")
-                    self.privateDatabase.save(record) { (savedRecord, error) in
+                    self.publicDatabase.save(record) { (savedRecord, error) in
                         DispatchQueue.main.async{
                             if error == nil{
                                 self.performSegue(withIdentifier: "cadastroFinalizado", sender: nil )
@@ -74,7 +74,7 @@ class ViewController: UIViewController {
                 
             }
         }
-        privateDatabase.add(operation)
+        publicDatabase.add(operation)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)

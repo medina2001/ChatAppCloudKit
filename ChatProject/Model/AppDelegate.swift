@@ -7,7 +7,7 @@
 
 import UIKit
 import CoreData
-import ClockKit
+import CloudKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -62,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             subscription.notificationInfo = info
             
             // Salvar a inscriçao no container do app
-            CKContainer(identifier: "iCloud.ChatApp").privateCloudDatabase.save(subscription, completionHandler: { subscription, error in
+            CKContainer(identifier: "iCloud.ChatApp").publicCloudDatabase.save(subscription, completionHandler: { subscription, error in
                 if error == nil {
                     print("foi de boas")
                 } else {
