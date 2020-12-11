@@ -9,41 +9,11 @@ import CloudKit
 import UIKit
 
 class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSource{
+    //    listas criadas para leitura do banco de dados
     var msgs: [CKRecord] = []
     var usersByID: [String : CKRecord] = [:]
-    //    Protocolo da TableView
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return msgs.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier:"cell", for: indexPath) as? TableViewCell else{
-            fatalError("Can't dequeue tweet table view cell")
-        }
-        let mensagem = msgs[indexPath.row]
-        
-        let df = DateFormatter()
-        df.dateFormat = "HH:mm dd/MM/yy"
-        cell.dateLabel.text = df.string(from: mensagem.creationDate!)
-        cell.msgText.text = mensagem["text"]!
-        if let user = usersByID[(mensagem["nickname"] as! CKRecord.Reference).recordID.recordName]{
-            cell.userName.text = user["name"]!
-        }
-        else{
-            cell.userName.text = "Anônimo"
-        }
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 105
-    }
-    
-    //    listas criadas para leitura do banco de dados
-    
     
     @IBOutlet weak var TableView: UITableView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +22,8 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         //        Instanciando o Delegate & DataSource
         TableView.delegate = self
         TableView.dataSource = self
+        //        Puxando as mensagens existentes
+        update()
     }
     
     //    Instanciando Container
@@ -106,6 +78,8 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                         
                         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                         self.present(alert,animated: true, completion: nil)
+                        //        Puxando as mensagens existentes
+                        self.update()
                     }else{
                         let alert = UIAlertController(title: "Erro", message: error!.localizedDescription, preferredStyle: .alert)
                         
@@ -131,10 +105,14 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.present(alert, animated: true, completion: nil)
         //        Adiciona operação no publicDatabase
         publicDatabase.add(operation)
-        
     }
     
     @IBAction func UpdateConsole(_ sender: Any) {
+        //        Puxando as mensagens existentes
+        update()
+    }
+    
+    func update(){
         print("Entrou na função update")
         msgs.removeAll()
         usersByID.removeAll()
@@ -154,7 +132,7 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.msgs.append(record)
                 self.TableView.reloadData()
                 
-//                CONFIA!!!
+                //                CONFIA!!!
                 let ref = record["nickname"] as! CKRecord.Reference
                 
                 if self.usersByID[ref.recordID.recordName] == nil{
@@ -176,5 +154,33 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
         publicDatabase.add(operation)
         
+    }
+    
+    //    Protocolo da TableView
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return msgs.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier:"cell", for: indexPath) as? TableViewCell else{
+            fatalError("Can't dequeue tweet table view cell")
+        }
+        let mensagem = msgs[indexPath.row]
+        
+        let df = DateFormatter()
+        df.dateFormat = "HH:mm dd/MM/yy"
+        cell.dateLabel.text = df.string(from: mensagem.creationDate!)
+        cell.msgText.text = mensagem["text"]!
+        if let user = usersByID[(mensagem["nickname"] as! CKRecord.Reference).recordID.recordName]{
+            cell.userName.text = user["name"]!
+        }
+        else{
+            cell.userName.text = "Anônimo"
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 105
     }
 }
