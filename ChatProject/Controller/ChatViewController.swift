@@ -97,7 +97,7 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             record.setValue(text, forKey: "text")
             //
             let reference = CKRecord.Reference(record: user!, action: .deleteSelf)
-            record.setValue(reference, forKey: nickname)
+            record.setValue(reference, forKey: "nickname")
             //        Salva o record no banco de dados de forma assíncrona com mensagens de sucesso e erro
             self.publicDatabase.save(record){ (savedRecord, error) in
                 DispatchQueue.main.async {
@@ -154,8 +154,8 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.msgs.append(record)
                 self.TableView.reloadData()
                 
+//                CONFIA!!!
                 let ref = record["nickname"] as! CKRecord.Reference
-                //                let ref = CKRecord.Reference(recordID: record.recordID, action: .none)
                 
                 if self.usersByID[ref.recordID.recordName] == nil{
                     self.publicDatabase.fetch(withRecordID: ref.recordID, completionHandler: {userRecord,error in
