@@ -9,6 +9,10 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
 
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var msgText: UITextView!
+    @IBOutlet weak var userName: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
