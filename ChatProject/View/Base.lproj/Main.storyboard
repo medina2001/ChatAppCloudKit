@@ -72,59 +72,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FOv-JX-IDI">
-                                <rect key="frame" x="20" y="159" width="374" height="551"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" rowHeight="122" id="e6k-Ui-JFk" customClass="TableViewCell" customModule="ChatProject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="374" height="122"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="e6k-Ui-JFk" id="R5e-XU-RPO">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="122"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KGl-AK-8VA">
-                                                    <rect key="frame" x="0.0" y="19" width="374" height="103"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                    <color key="textColor" systemColor="labelColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                </textView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rafa" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQ3-du-UmA">
-                                                    <rect key="frame" x="39" y="-1.5" width="34.5" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18/12/2001" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x8m-2W-k4u">
-                                                    <rect key="frame" x="254.5" y="0.0" width="82.5" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" systemColor="opaqueSeparatorColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="QQ3-du-UmA" firstAttribute="leading" secondItem="R5e-XU-RPO" secondAttribute="leading" constant="39" id="HGb-sj-12k"/>
-                                                <constraint firstItem="KGl-AK-8VA" firstAttribute="centerX" secondItem="R5e-XU-RPO" secondAttribute="centerX" id="V2W-Qx-cBW"/>
-                                                <constraint firstAttribute="trailing" secondItem="x8m-2W-k4u" secondAttribute="trailing" constant="37" id="XNw-nJ-1vs"/>
-                                                <constraint firstItem="KGl-AK-8VA" firstAttribute="leading" secondItem="R5e-XU-RPO" secondAttribute="leading" id="cOU-qG-3Cr"/>
-                                                <constraint firstItem="KGl-AK-8VA" firstAttribute="centerY" secondItem="R5e-XU-RPO" secondAttribute="centerY" constant="9.5" id="eTn-4H-P2c"/>
-                                                <constraint firstItem="x8m-2W-k4u" firstAttribute="top" secondItem="R5e-XU-RPO" secondAttribute="top" id="lP4-83-QET"/>
-                                                <constraint firstItem="KGl-AK-8VA" firstAttribute="top" secondItem="QQ3-du-UmA" secondAttribute="bottom" id="xyv-Tg-moh"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <constraints>
-                                            <constraint firstAttribute="height" secondItem="KGl-AK-8VA" secondAttribute="height" constant="19" id="XC6-xN-VHI"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="DataLabel" destination="x8m-2W-k4u" id="jmR-5E-rp9"/>
-                                            <outlet property="UserNameLabel" destination="QQ3-du-UmA" id="6eh-b6-BM3"/>
-                                            <outlet property="msgTextView" destination="KGl-AK-8VA" id="szw-KG-9rA"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
                             <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6dM-7h-qkx">
                                 <rect key="frame" x="160" y="730" width="94" height="81"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -168,12 +115,32 @@
                                     <action selector="TweetBut:" destination="UXn-dy-J11" eventType="touchUpInside" id="J0l-w9-KSV"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3kA-hP-U0F">
+                                <rect key="frame" x="20" y="188" width="374" height="477"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="Efv-el-ZNP" customClass="TableViewCell" customModule="ChatProject" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="374" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Efv-el-ZNP" id="SDq-Vz-0yN">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="UXn-dy-J11" id="5cm-hp-dd2"/>
+                                    <outlet property="delegate" destination="UXn-dy-J11" id="iYw-RK-Rxe"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0x7-is-yZV"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="bdF-4N-wtW"/>
                     <connections>
+                        <outlet property="TableView" destination="3kA-hP-U0F" id="faa-8Z-Uvp"/>
                         <outlet property="UserName" destination="0xH-eK-VEX" id="ZuY-Ex-Rh6"/>
                     </connections>
                 </viewController>
@@ -205,12 +172,6 @@
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="square.and.pencil" catalog="system" width="128" height="115"/>
         <image name="trash" catalog="system" width="121" height="128"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
