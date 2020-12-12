@@ -34,6 +34,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         CadastrarButton.layer.cornerRadius = 3
+        UserNameText.delegate = self
     }
     
     func cadastrarUsuário(Username: String){
@@ -84,5 +85,12 @@ class ViewController: UIViewController {
             let vc = segue.destination as? ChatViewController
             vc?.nickname = Username
         }
+    }
+}
+
+extension ViewController: UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
 }
