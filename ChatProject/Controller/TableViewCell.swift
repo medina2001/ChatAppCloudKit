@@ -10,8 +10,9 @@ import UIKit
 class TableViewCell: UITableViewCell {
 
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var msgText: UITextView!
+    @IBOutlet weak var msgText: UILabel!
     @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var background: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

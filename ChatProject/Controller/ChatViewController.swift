@@ -24,6 +24,10 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         TableView.dataSource = self
         //        Puxando as mensagens existentes
         update()
+
+        //ajuste do autolayout das células da tableView
+        self.TableView.rowHeight = UITableView.automaticDimension
+        self.TableView.estimatedRowHeight = 600
     }
     
     //    Instanciando Container
@@ -177,10 +181,9 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         else{
             cell.userName.text = "Anônimo"
         }
+        
+        cell.background.layer.cornerRadius = 8
+        
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 105
     }
 }
