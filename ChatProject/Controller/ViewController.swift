@@ -33,7 +33,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        CadastrarButton.layer.cornerRadius = 3
     }
     
     func cadastrarUsuário(Username: String){
