@@ -10,8 +10,70 @@ import CoreData
 import CloudKit
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
+
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        UNUserNotificationCenter.current().delegate = self
+
+          // Request permission from user to send notification
+          UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { authorized, error in
+            if authorized {
+              DispatchQueue.main.async(execute: {
+                application.registerForRemoteNotifications()
+              })
+            }
+          })
+        return true
+    }
+
+        // nessa parte iremos usar o ID para definir para qual lugar a mensagem esta idno
+        func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+            
+            // Ter um recodType criado no app
+            // quando houver uma alteração o usuário será notificado
+            
+            // O predicado permite definir a condição da assinatura, por exemplo: só ser notificado da mudança se a notificação recém-criada começar com "A"
+            // o TRUEPREDICATE significa que qualquer novo registro de Notificações criado será notificado
+            let subscription = CKQuerySubscription(recordType: "Message", predicate: NSPredicate(format: "TRUEPREDICATE"), options: .firesOnRecordCreation)
+            
+            // serve pra deixar customizavel a notificação
+            let info = CKSubscription.NotificationInfo()
+            
+            // isso usará o campo 'título' nas 'notificações' do tipo de registro como o título da notificação push
+            info.titleLocalizationKey = "%1$@"
+            info.titleLocalizationArgs = ["nickname"]
+            
+            // se você deseja usar vários campos combinados para o título da notificação push
+            // info.titleLocalizationArgs = ["título", "subtítulo"]
+            
+            // isso usará o campo 'conteúdo' nas 'notificações' do tipo de registro como o conteúdo da notificação push
+            info.alertLocalizationKey = "%1$@" as String
+            info.alertLocalizationArgs = ["text"]
+            
+            
+            info.shouldBadge = false //codigo q deixa o aviso vermelho tipo do wpp
+            
+           
+            info.soundName = "default" // usar som
+            
+            subscription.notificationInfo = info
+            
+            // Salvar a inscriçao no container do app
+            CKContainer(identifier: "iCloud.ChatApp").publicCloudDatabase.save(subscription, completionHandler: { subscription, error in
+                if error == nil {
+                    print("foi de boas")
+                } else {
+                    print("deu erro")
+                }
+            })
+            
+        }
+    
+    
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
@@ -24,26 +86,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-    }
-    
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        UNUserNotificationCenter.current().delegate = self
-        
-        // Request permission from user to send notification
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { authorized, error in
-            if authorized {
-                DispatchQueue.main.async(execute: {
-                    application.registerForRemoteNotifications()
-                })
-            }
-        })
-        return true
-    }
-    
-    
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        
     }
 
     // MARK: - Core Data stack
@@ -92,5 +134,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
 }
-
-
+extension AppDelegate: UNUserNotificationCenterDelegate{
+    
+  // This function will be called when the app receive notification
+  func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    
+    // show the notification alert (banner), and with sound
+    completionHandler([.alert, .sound])
+  }
+  
+  // This function will be called right after user tap on the notification
+  func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+    
+    // tell the app that we have finished processing the user’s action (eg: tap on notification banner) / response
+    completionHandler()
+  }
+}
