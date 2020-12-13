@@ -10,54 +10,14 @@ import CoreData
 import CloudKit
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-
-
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        UNUserNotificationCenter.current().delegate = self
 
-          // Request permission from user to send notification
-          UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { authorized, error in
-            if authorized {
-              DispatchQueue.main.async(execute: {
-                application.registerForRemoteNotifications()
-              })
-            }
-          })
         return true
     }
 
-        // nessa parte iremos usar o ID para definir para qual lugar a mensagem esta idno
-        func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-            
-            let database = CKContainer(identifier: "iCloud.ChatApp").publicCloudDatabase
-            let predicate = NSPredicate(format: "TRUEPREDICATE")
-            
-                let subscription = CKQuerySubscription(recordType: "Message", predicate: predicate, options: .firesOnRecordCreation)
-
-                let notification = CKSubscription.NotificationInfo()
-            
-            notification.titleLocalizationKey = "%1$@"
-            notification.titleLocalizationArgs = ["nome"]
-                
-            notification.alertLocalizationKey = "%1$@"
-            notification.alertLocalizationArgs = ["text"]
-            
-                notification.soundName = "default"
-
-                subscription.notificationInfo = notification
-
-                database.save(subscription) { result, error in
-                    if let error = error {
-                        print(error.localizedDescription)
-                    }
-                }
-            
-        }
-    
-    
     
     // MARK: UISceneSession Lifecycle
 
@@ -116,10 +76,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .sound, .badge])
     }
 
 }
