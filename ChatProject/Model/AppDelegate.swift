@@ -10,7 +10,7 @@ import CoreData
 import CloudKit
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
 
 
@@ -32,43 +32,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // nessa parte iremos usar o ID para definir para qual lugar a mensagem esta idno
         func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
             
-            // Ter um recodType criado no app
-            // quando houver uma alteração o usuário será notificado
+            let database = CKContainer(identifier: "iCloud.ChatApp").publicCloudDatabase
+            let predicate = NSPredicate(format: "TRUEPREDICATE")
             
-            // O predicado permite definir a condição da assinatura, por exemplo: só ser notificado da mudança se a notificação recém-criada começar com "A"
-            // o TRUEPREDICATE significa que qualquer novo registro de Notificações criado será notificado
-            let subscription = CKQuerySubscription(recordType: "Message", predicate: NSPredicate(format: "TRUEPREDICATE"), options: .firesOnRecordCreation)
+                let subscription = CKQuerySubscription(recordType: "Message", predicate: predicate, options: .firesOnRecordCreation)
+
+                let notification = CKSubscription.NotificationInfo()
             
-            // serve pra deixar customizavel a notificação
-            let info = CKSubscription.NotificationInfo()
+            notification.titleLocalizationKey = "%1$@"
+            notification.titleLocalizationArgs = ["nome"]
+                
+            notification.alertLocalizationKey = "%1$@"
+            notification.alertLocalizationArgs = ["text"]
             
-            // isso usará o campo 'título' nas 'notificações' do tipo de registro como o título da notificação push
-            info.titleLocalizationKey = "%1$@"
-            info.titleLocalizationArgs = ["nickname"]
-            
-            // se você deseja usar vários campos combinados para o título da notificação push
-            // info.titleLocalizationArgs = ["título", "subtítulo"]
-            
-            // isso usará o campo 'conteúdo' nas 'notificações' do tipo de registro como o conteúdo da notificação push
-            info.alertLocalizationKey = "%1$@" as String
-            info.alertLocalizationArgs = ["text"]
-            
-            
-            info.shouldBadge = false //codigo q deixa o aviso vermelho tipo do wpp
-            
-           
-            info.soundName = "default" // usar som
-            
-            subscription.notificationInfo = info
-            
-            // Salvar a inscriçao no container do app
-            CKContainer(identifier: "iCloud.ChatApp").publicCloudDatabase.save(subscription, completionHandler: { subscription, error in
-                if error == nil {
-                    print("foi de boas")
-                } else {
-                    print("deu erro")
+                notification.soundName = "default"
+
+                subscription.notificationInfo = notification
+
+                database.save(subscription) { result, error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    }
                 }
-            })
             
         }
     
@@ -132,21 +117,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound, .badge])
+    }
 
-}
-extension AppDelegate: UNUserNotificationCenterDelegate{
-    
-  // This function will be called when the app receive notification
-  func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-    
-    // show the notification alert (banner), and with sound
-    completionHandler([.alert, .sound])
-  }
-  
-  // This function will be called right after user tap on the notification
-  func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-    
-    // tell the app that we have finished processing the user’s action (eg: tap on notification banner) / response
-    completionHandler()
-  }
 }

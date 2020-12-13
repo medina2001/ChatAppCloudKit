@@ -28,6 +28,7 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         //ajuste do autolayout das células da tableView
         self.TableView.rowHeight = UITableView.automaticDimension
         self.TableView.estimatedRowHeight = 600
+        
     }
     
     //    Instanciando Container
@@ -71,6 +72,8 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             //        Cria e seta o record para o tipo desejado: Message -> text && nickname
             let record = CKRecord(recordType: "Message")
             record.setValue(text, forKey: "text")
+            //Alterei aqui
+            record.setValue(nickname, forKey: "nome")
             //
             let reference = CKRecord.Reference(record: user!, action: .deleteSelf)
             record.setValue(reference, forKey: "nickname")
