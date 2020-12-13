@@ -66,7 +66,7 @@ class ViewController: UIViewController {
                             if error == nil{
                                 self.performSegue(withIdentifier: "cadastroFinalizado", sender: nil )
                             }else{
-                                self.performSegue(withIdentifier: "cadastroFinalizado", sender: nil)
+                                self.shouldPerformSegue(withIdentifier: "cadastroFinalizado", sender: nil)
                                 print("teste")
                             }
                         }
