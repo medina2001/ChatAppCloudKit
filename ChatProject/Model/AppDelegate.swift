@@ -15,45 +15,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        UNUserNotificationCenter.current().delegate = self
-
-          // Request permission from user to send notification
-          UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { authorized, error in
-            if authorized {
-              DispatchQueue.main.async(execute: {
-                application.registerForRemoteNotifications()
-              })
-            }
-          })
+        
+        
+        
         return true
     }
 
         // nessa parte iremos usar o ID para definir para qual lugar a mensagem esta idno
         func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
             
-            let database = CKContainer(identifier: "iCloud.ChatApp").publicCloudDatabase
-            let predicate = NSPredicate(format: "TRUEPREDICATE")
             
-                let subscription = CKQuerySubscription(recordType: "Message", predicate: predicate, options: .firesOnRecordCreation)
-
-                let notification = CKSubscription.NotificationInfo()
-            
-            notification.titleLocalizationKey = "%1$@"
-            notification.titleLocalizationArgs = ["nome"]
-                
-            notification.alertLocalizationKey = "%1$@"
-            notification.alertLocalizationArgs = ["text"]
-            
-                notification.soundName = "default"
-
-                subscription.notificationInfo = notification
-
-                database.save(subscription) { result, error in
-                    if let error = error {
-                        print(error.localizedDescription)
-                    }
-                }
             
         }
     
