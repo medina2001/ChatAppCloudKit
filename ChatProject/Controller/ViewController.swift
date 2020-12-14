@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         }
         
         operation.queryCompletionBlock = { cursor, error in
-            DispatchQueue.main.async {      //Dar uma olhanda no pq é assincrono aqui
+            DispatchQueue.main.async {
                 if existed{
                     print("Bem Vindo", Username)
                     self.performSegue(withIdentifier: "cadastroFinalizado", sender: nil )
@@ -67,7 +67,7 @@ class ViewController: UIViewController {
                                 self.performSegue(withIdentifier: "cadastroFinalizado", sender: nil )
                             }else{
                                 self.shouldPerformSegue(withIdentifier: "cadastroFinalizado", sender: nil)
-                                print("teste")
+                                print("Erro ao tentar cadastrar usuário!!!")
                             }
                         }
                     }
