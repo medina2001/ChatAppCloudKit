@@ -5,6 +5,15 @@
 //  Created by Gabriel de Oliveira Maciel on 24/11/20.
 //
 
+
+
+
+
+
+
+
+
+
 import CloudKit
 import UIKit
 
@@ -66,7 +75,7 @@ class ViewController: UIViewController {
                             if error == nil{
                                 self.performSegue(withIdentifier: "cadastroFinalizado", sender: nil )
                             }else{
-                                self.shouldPerformSegue(withIdentifier: "cadastroFinalizado", sender: nil)
+                              self.shouldPerformSegue(withIdentifier: "cadastroFinalizado", sender: nil)
                                 print("teste")
                             }
                         }

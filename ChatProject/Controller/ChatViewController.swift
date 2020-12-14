@@ -9,9 +9,16 @@ import CloudKit
 import UIKit
 
 class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSource{
-    //    listas criadas para leitura do banco de dados
+    
+    
+    
+    //  #Listas criadas para leitura do banco de dados
     var msgs: [CKRecord] = []
     var usersByID: [String : CKRecord] = [:]
+    
+    
+    
+    
     
     @IBOutlet weak var TableView: UITableView!
     
@@ -31,8 +38,16 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
     }
     
-    //    Instanciando Container
+    
+    
+    
+    // #Instanciando Container
     let publicDatabase = CKContainer(identifier: "iCloud.ChatApp").publicCloudDatabase
+    
+    
+    
+    
+    
     
     //    Criando variável nickname para receber o nome do usuário
     var nickname:String = ""
@@ -42,9 +57,23 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         escreverMensagem(nickname: nickname)
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
     //    Função para escrever mensagem do usuário
     func escreverMensagem(nickname: String){
-        //    Procura um record do tipo "name" na entidade (RecordType) "ChatUser" com o mesmo valor de "nickname"
+        
+        
+        //#QUERY
+        
+        // Procura um record do tipo "name" na entidade (RecordType) "ChatUser" com o mesmo valor de "nickname" por meio de um query que é uma busca no banco por meio de um atributo específico.
+        
         let predicate = NSPredicate(format: "name == %@", nickname)
         
         let query = CKQuery(recordType: "ChatUser", predicate: predicate)
@@ -59,6 +88,12 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             }
         }
         
+        
+        
+        
+        
+        //#Criação de alertas
+        
         //        Campo para escrever mensagem em um AlertController
         let alert = UIAlertController(title: "Câmbio,câmbio", message: "Seja rápido soldado!!!", preferredStyle: .alert)
         alert.addTextField()
@@ -69,12 +104,19 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let saveAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
             let text = textField.text
             
+            
+            
+            
+            
+            
+            //#Salvando a mensagem e referenciando
+            
             //        Cria e seta o record para o tipo desejado: Message -> text && nickname
             let record = CKRecord(recordType: "Message")
             record.setValue(text, forKey: "text")
             //Alterei aqui
             record.setValue(nickname, forKey: "nome")
-            //
+            //Cria a referencia em relação ao atributo "user" da entitade "chatUser" e a ação significa que caso o usuário seja deletado o tweet tbm será
             let reference = CKRecord.Reference(record: user!, action: .deleteSelf)
             record.setValue(reference, forKey: "nickname")
             //        Salva o record no banco de dados de forma assíncrona com mensagens de sucesso e erro
@@ -97,6 +139,17 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             }
         })
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        // #Configurações visuais do alerta
+        
         //        Cria função de cancelar a ação de salvar no banco de dados do Alerta
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
@@ -110,22 +163,51 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         alert.addAction(cancelAction)
         
         self.present(alert, animated: true, completion: nil)
-        //        Adiciona operação no publicDatabase
+        //# Adiciona operação no publicDatabase
         publicDatabase.add(operation)
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //#Chamando a função
     
     @IBAction func UpdateConsole(_ sender: Any) {
         //        Puxando as mensagens existentes
         update()
     }
     
+    
     func update(){
         print("Entrou na função update")
-        msgs.removeAll()
-        usersByID.removeAll()
+        msgs.removeAll() //Remove todas as mensagens para puxarmo tudo denovo
+        usersByID.removeAll() //Remove todos os usuários para puxarmos denovo
         
+        // Fazemos uma query em todos os campos do message e não especificamos um predicado aqui porque queremos puxar todas as mensagens
         let predicate = NSPredicate(value: true)
-        
+    
         let query = CKQuery(recordType: "Message", predicate: predicate)
         
         query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
